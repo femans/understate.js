@@ -43,7 +43,6 @@ var replacer = '_';
 
 module.exports.replace_character = function(character){
     replacer = character;
-    console.log("replacer: ",replacer);
     return this;
 }
 module.exports.keep_in_place = function(keep){
