@@ -4,9 +4,11 @@
 Saying I was missing a string formatter in javascript is an understatement. So I made one. 
 
 syntax: 
-> string._(a,b,...) replace underscores or numbered underscores by the arguments; 
 
-> string._({a:x, b:y, ...}) replace by name: _a_, _b_
+> `string._(a,b,...)` replace underscores (`_`, `_`) or numbered underscores (`_1_`, `_2_`) by the consecutive arguments; 
+
+> `string._( {a:x, b:y, ...} )` replace by name: `_a_`, `_b_`
+
 
 * escape with /
 * Named patterns can't contain underscores, spaces or forward slashes.
