@@ -5,23 +5,6 @@ syntax:
 >  string._(a,b,...) => replace underscores or numbered underscores by the arguments; 
 >  string._({a:x, b:y, ...}) object-arguments will attempt to replace named underscores with their values. 
 
-* A '/' before an underscore escapes the underscore for the understate processor. 
-* Named underscore patterns are not allowed to have underscores, spaces or slashes in them.
-* Named patterns can be only numbers if not mixed with unnamed patterns.
-* Unmatched underscore sequences will be removed from the string by default
-
-> require('./understate')
-
-
-  'hello _!'._('world') => 'hello world!'
-  'my name is _ _'._(firstname, lastname) => 'my name is '+firstname+' '+lastname
-  'this is _1_; _1_ is a _2_'._('bob', 'builder') => 'this is bob; bob is a builder'
-  'this is _name_ the _profession_'._({profession: 'builder', name: 'bob'}) => 'this is bob the builder'
-  '_first_ _1_'._('expressions', {first: 'mixed'}) => 'mixed expressions'
-  '_1_'._('which', {1:'one?'}) => 'which'
-
-  'hello /_ _'._('world') => 'hello _ world' // '/' escapes underscore for understate processor
-
 syntax: 
   string._(a,b,...) => replace underscores or numbered underscores by the arguments; 
   string._({a:x, b:y, ...}) object-arguments will attempt to replace named underscores with their values. 
@@ -30,6 +13,17 @@ syntax:
 * Named underscore patterns are not allowed to have underscores, spaces or slashes in them.
 * Named patterns can be only numbers if not mixed with unnamed patterns.
 * Unmatched underscore sequences will be removed from the string by default
+
+> require('./understate')
+
+>  'hello _!'._('world') => 'hello world!'
+>  'my name is _ _'._(firstname, lastname) => 'my name is '+firstname+' '+lastname
+>  'this is _1_; _1_ is a _2_'._('bob', 'builder') => 'this is bob; bob is a builder'
+>  'this is _name_ the _profession_'._({profession: 'builder', name: 'bob'}) => 'this is bob the builder'
+>  '_first_ _1_'._('expressions', {first: 'mixed'}) => 'mixed expressions'
+>  '_1_'._('which', {1:'one?'}) => 'which'
+>
+>  'hello /_ _'._('world') => 'hello _ world' // '/' escapes underscore for understate processor
 
 by doing sth like:
 >> var understate = require('./understate');
