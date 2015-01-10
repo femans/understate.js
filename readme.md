@@ -5,14 +5,16 @@ Saying I was missing a string formatter in javascript is an understatement. So I
 
 syntax: 
 
-> `string._(a,b,...)` replace underscores (`_`, `_`) or numbered underscores (`_1_`, `_2_`) by the consecutive arguments; 
+> `string._(a,b,...)` replace underscores (`_`, `_`, ...) or numbered underscores (`_1_`, `_2_`, ...) by the consecutive arguments; 
 
-> `string._( {a:x, b:y, ...} )` replace by name: `_a_`, `_b_`
-
+> `string._({alfa: x, bravo: y, charlie: z, ...})` replace by name: `_alfa_`, `_bravo_`. `_charlie_`
 
 * escape with /
 * Named patterns can't contain underscores, spaces or forward slashes.
-* Unmatched patterns will be removed from the string by default
+* Unmatched patterns will be removed from the string by default; this can be changed by setting
+* the default _ can be changed with a setting
+* can't mix named mode and normal mode in one statement; it can be done by daisychaining.
+* the String prototype is modified.
 ```
 > require('./understate')
 
@@ -22,7 +24,7 @@ syntax:
 'this is bob; bob is a builder'
 > 'The name is _lastname_, _firstname_ _lastname_'._({firstname: 'James', lastname: 'Bond'})
 'The name is Bond, James Bond'
-> console.log('_/__@_.com'._('john', 'snow', 'nightswatch')) // escape an underscore with '/'
+> console.log('_/__@_.com'._('john', 'snow', 'nightswatch')) // escape 
 'john_snow@nightswatch.com'
 ```
 by doing sth like:
