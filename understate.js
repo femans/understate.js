@@ -19,20 +19,35 @@
  * * A '/' before an underscore escapes the underscore for the understate processor. 
  * * Named underscore patterns are not allowed to have underscores, spaces or slashes in them.
  * * Named patterns can be only numbers if not mixed with unnamed patterns.
- * * Unmatched underscore sequences will be removed from the string by default; this behaviour can be changed by calling the module with for example 
- * >> require('./understate')(true)
- */
+ * * Unmatched underscore sequences will be removed from the string by default
+ *
+ * by doing sth like:
+ * >> var understate = require('./understate');
+ * >> understate.replace_character('~');
+ * you can change the character that is used in stead of _; the function name is still _ though. Also bear in mind that this has to be regex-safe; so in stead of e.g. '%' do '\\%'. It can also be a sequence of characters.
+ *
+ * to change behaviour of removing of the unreplaced sequence, do sth like this:
+ * >> var understate = require('./understate');
+ * >> understate.keep_in_place(true);
+ *
+ * */
 
 
 /*
  * TODO:
- * 4. implement alternative replacer 
+ * make full npm package
  */
 
 var keep_in_place = false;
+var replacer = '_';
 
+module.exports.replace_character = function(character){
+    replacer = character;
+    console.log("replacer: ",replacer);
+    return this;
+}
 module.exports.keep_in_place = function(keep){
-    if(keep)keep_in_place=keep;
+    keep_in_place = keep;
     return this;
 }
 
@@ -44,11 +59,11 @@ String.prototype._ = function(){
         named_args = args[0];
 
     if(!named_args){
-        var re1 = new RegExp("(\\/)?_(\\d+)_", "gm"),
-            re2 = new RegExp("(\\/)?(_)", "gm"),
+        var re1 = new RegExp("(\\/)?" + replacer + "(\\d+)" + replacer, "gm"),
+            re2 = new RegExp("(\\/)?(" + replacer + ")", "gm"),
             position = -1;
                 
-        return this.replace(re1, function(_, $0,$1){
+        return this.replace(re1, function(_, $0, $1){
             return ($0)?_:(args[$1-1]||(keep_in_place?_:''))
         })
         .replace(re2, function(m, slash, _){
@@ -56,7 +71,7 @@ String.prototype._ = function(){
         });
     }
     else
-        return this.replace(/(\/)?_([^/_\s]*)(\/)?_/gm, function(_, $0,$1,$2){
-            return ($0||$2)?_:(named_args[$1]||(keep_in_place?_:''))
+        return this.replace(/(\/)?_([^/_\s]*)_/gm, function(_, $0, $1){
+            return ($0)?_:(named_args[$1]||(keep_in_place?_:''))
         });
 }

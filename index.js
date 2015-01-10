@@ -23,5 +23,7 @@ function testRunner(){
     understate.keep_in_place(true);
     console.log(test('_3_'._(), '_3_'));
     console.log(test('_/__'._(), '_/__'));
+    understate.replace_character('\\%');
+    console.log(test('hello %!'._('world'), 'hello world!'));
 }
 testRunner();
