@@ -42,7 +42,7 @@ var keep_in_place = false;
 var replacer = '_';
 
 module.exports.replace_character = function(character){
-    replacer = character;
+    if (character) replacer = character;
     return this;
 }
 module.exports.keep_in_place = function(keep){
@@ -61,7 +61,6 @@ String.prototype._ = function(){
         var re1 = new RegExp("(\\/)?" + replacer + "(\\d+)" + replacer, "gm"),
             re2 = new RegExp("(\\/)?(" + replacer + ")", "gm"),
             position = -1;
-                
         return this.replace(re1, function(_, $0, $1){
             return ($0)?_:(args[$1-1]||(keep_in_place?_:''))
         })
@@ -70,7 +69,8 @@ String.prototype._ = function(){
         });
     }
     else
-        return this.replace(/(\/)?_([^/_\s]*)_/gm, function(_, $0, $1){
+        var re = new RegExp(["(\\/)?","([^/", "\\s]*)",""].join(replacer),"gm");
+        return this.replace(re, function(_, $0, $1){
             return ($0)?_:(named_args[$1]||(keep_in_place?_:''))
         });
 }

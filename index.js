@@ -25,5 +25,7 @@ function testRunner(){
     console.log(test('_/__'._(), '_/__'));
     understate.replace_character('\\%');
     console.log(test('hello %!'._('world'), 'hello world!'));
+    console.log(test('hello %name%!'._({name: 'john'}), 'hello john!'));
+
 }
 testRunner();
