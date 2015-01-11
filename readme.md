@@ -27,7 +27,9 @@ syntax:
 > console.log('_/__@_.com'._('john', 'snow', 'nightswatch')) // escape 
 'john_snow@nightswatch.com'
 ```
-by doing sth like:
+
+#### changing default character
+By doing sth like:
 ```
 > require('./understate').replace_character('~')
 > 'hello ~!'._('world')
@@ -40,6 +42,7 @@ by doing sth like:
 'hello world!'
 ```
 
+#### changing behaviour of unmatched formatting characters
 By default, if the function runs out of arguments, the remaining unreplaced occurrences of underscores are removed. To change this behaviour, do sth like this:
 ```
 > '_ _ _ _ _'._('hello', 'world')
