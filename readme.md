@@ -1,7 +1,7 @@
 #understate.js 
-## a simple string formatter for javascript / node
+## an elegant string formatter for javascript / node
 
-Saying I was missing a string formatter in javascript is an understatement. So I made one. 
+I needed a decent string formatter. So I made one. 
 
 syntax: 
 
